@@ -38,6 +38,17 @@
                         </v-flex>
                     </v-layout>
                     <v-layout row>
+                        <v-flex xs12 sm6 offset-sm3 mb-2>
+                            <h4>Choose Date and Time</h4>
+                            <v-date-picker v-model="date"></v-date-picker>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row>
+                        <v-flex xs12 sm6 offset-sm3>
+                            <v-time-picker format="24hr" v-model="time"></v-time-picker>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row>
                         <v-flex xs12 sm6 offset-sm3>
                             <v-btn type="submit" :disabled="!formIsValid" class="primary">CREATE MEETUP</v-btn>
                         </v-flex>
@@ -54,7 +65,9 @@ export default {
             title: '',
             description: '',
             location: '',
-            imageUrl: ''
+            imageUrl: '',
+            date: new Date(),
+            time: new Date()
         }
     },
     computed: {
@@ -63,21 +76,33 @@ export default {
                 && this.description !== ''
                 && this.imageUrl !== ''
                 && this.location !== '';
+        },
+        submitableDateTime() {
+            let date = new Date(this.date);
+            console.log(this.time);
+            if(typeof this.time === 'string') {
+                let hours = this.time.match(/^(\d+)/)[1]
+                let minutes = this.time.match(/:(\d+)/)[1]
+                date.setHours(hours)
+                date.setMinutes(minutes)
+            } else {
+                date.setHours(this.time.getHours())
+                date.setMinutes(this.time.getMinutes())
+            }
+            return date;
         }
     },
     methods: {
-
         onCreateMeetup() {
-            if(!this.formIsValid){
+            if (!this.formIsValid) {
                 return
             }
-            var d = new Date();
             var meetup = {
                 title: this.title,
                 description: this.description,
                 imageUrl: this.imageUrl,
                 location: this.location,
-                createdDate: d.toDateString()
+                createdDate: this.submitableDateTime
             }
             //console.log(this.title, this.imageUrl, this.description)
             this.$store.dispatch('createMeetup', meetup)
