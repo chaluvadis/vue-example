@@ -1,6 +1,7 @@
 # Vue Example
 
 > A Simple meetup app created using VueJs and Firebase
+> This branch is created to implemente unit tests for the app
 
 ## Build Setup
 
