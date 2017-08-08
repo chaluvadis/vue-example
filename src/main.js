@@ -2,12 +2,11 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import App from './App'
 import router from './router'
-import {store} from './store'
+import { store } from './store'
 import DateFilter from './filter/date'
-import VueFire from 'vuefire'
+import * as firebase from 'firebase';
 
 Vue.use(Vuetify)
-Vue.use(VueFire)
 
 Vue.config.productionTip = false
 Vue.filter('date', DateFilter)
@@ -17,5 +16,14 @@ new Vue({
   el: '#app',
   store,
   router,
-  render: h => h(App)
+  render: h => h(App),
+  created() {
+    firebase.initializeApp({
+      apiKey: "AIzaSyAaaAphMFYJTWPF7pe1nBIkSmLy5AB_0WM",
+      authDomain: "devmeetup-74f32.firebaseapp.com",
+      databaseURL: "https://devmeetup-74f32.firebaseio.com",
+      projectId: "devmeetup-74f32",
+      storageBucket: "",
+    })
+  }
 })
