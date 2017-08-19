@@ -42,6 +42,16 @@ export default {
     computed: {
         formIsValid() {
             return this.email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) && this.password !== ''
+        },
+        user() {
+            return this.$store.getters.user;
+        }
+    },
+    watch: {
+        user(value) {
+            if(value !== null && value !== undefined) {
+                this.$router.push('/')
+            }
         }
     },
     methods: {
@@ -49,13 +59,11 @@ export default {
             if (!this.formIsValid) {
                 return
             }
-            var user = {
+            //console.log(this.title, this.imageUrl, this.description)
+            this.$store.dispatch('onUserSignIn', {
                 email: this.email,
                 password: this.password
-            }
-            //console.log(this.title, this.imageUrl, this.description)
-            this.$store.dispatch('createMeetup', meetup)
-            this.$router.push('/meetups')
+            })
         }
     }
 }
