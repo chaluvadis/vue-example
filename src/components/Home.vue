@@ -12,7 +12,13 @@
                 </v-btn>
             </v-flex>
         </v-layout>
-        <v-layout row wrap class="mt-2">
+        <v-layout row wrap class="mt-2" v-if="loading">
+            <v-flex xs12 sm6 class="text-xs-center">
+                <v-progress-circular indeterminate :size="70" :width="7" class="primary--text">
+                </v-progress-circular>
+            </v-flex>
+        </v-layout>
+        <v-layout row wrap class="mt-2" v-if="!loading">
             <v-flex xs12>
                 <v-carousel style="cursor:pointer;">
                     <v-carousel-item v-for="(item,i) in meetups" v-bind:src="item.imageUrl" :key="item.id" @click="onLoadMeetup(item.id)">
@@ -35,6 +41,9 @@ export default {
     computed: {
         meetups() {
             return this.$store.getters.featuredMeetups
+        },
+        loading () {
+            return this.$store.getters.loading
         }
     },
     methods: {
