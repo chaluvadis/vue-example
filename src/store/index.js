@@ -54,7 +54,8 @@ export const store = new Vuex.Store({
                             description: obj[key].description,
                             imageUrl: obj[key].imageUrl,
                             location: obj[key].location,
-                            createdDate: obj[key].createdDate
+                            createdDate: obj[key].createdDate,
+                            creatorId: obj[key].creatorId
                         })
                     }
                     console.log(meetups);
@@ -73,13 +74,14 @@ export const store = new Vuex.Store({
                 description: payload.description,
                 imageUrl: payload.imageUrl,
                 location: payload.location,
-                createdDate: payload.createdDate.toISOString()
+                createdDate: payload.createdDate.toISOString(),
+                creatorId: getters.user.id
             }
 
             firebase.database()
                 .ref('meetups')
                 .push(meetup).
-                then((data) => {
+            then((data) => {
                     var key = data.key
                     commit('createMeetup', {
                         ...meetup,

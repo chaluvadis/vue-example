@@ -6,27 +6,29 @@ import { store } from './store'
 import DateFilter from './filter/date'
 import * as firebase from 'firebase';
 import * as AlertCmp from './shared/alert.vue'
+import * as EditMeetupDetailsDialog from './components/Meetup/Edit/EditMeetupDialog.vue'
 Vue.use(Vuetify)
 
 Vue.config.productionTip = false
 Vue.filter('date', DateFilter)
 Vue.component('app-alert', AlertCmp)
+Vue.component('app-edit-meetup-details-dialog', EditMeetupDetailsDialog)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  store,
-  router,
-  render: h => h(App),
-  created() {
-    firebase.initializeApp({
-      apiKey: "AIzaSyAaaAphMFYJTWPF7pe1nBIkSmLy5AB_0WM",
-      authDomain: "devmeetup-74f32.firebaseapp.com",
-      databaseURL: "https://devmeetup-74f32.firebaseio.com",
-      projectId: "devmeetup-74f32",
-      storageBucket: "",
-    })
+    el: '#app',
+    store,
+    router,
+    render: h => h(App),
+    created() {
+        firebase.initializeApp({
+            apiKey: "AIzaSyAaaAphMFYJTWPF7pe1nBIkSmLy5AB_0WM",
+            authDomain: "devmeetup-74f32.firebaseapp.com",
+            databaseURL: "https://devmeetup-74f32.firebaseio.com",
+            projectId: "devmeetup-74f32",
+            storageBucket: "",
+        })
 
-    this.$store.dispatch('loadMeetups')
-  },
+        this.$store.dispatch('loadMeetups')
+    },
 })
