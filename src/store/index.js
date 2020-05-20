@@ -3,12 +3,12 @@ import Vuex from 'vuex';
 import * as firebase from 'firebase'
 
 let config = {
-    apiKey: "AIzaSyAaaAphMFYJTWPF7pe1nBIkSmLy5AB_0WM",
-    authDomain: "devmeetup-74f32.firebaseapp.com",
-    databaseURL: "https://devmeetup-74f32.firebaseio.com",
-    projectId: "devmeetup-74f32",
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
     storageBucket: "",
-    messagingSenderId: "334324140892"
+    messagingSenderId: ""
 };
 
 Vue.use(Vuex);
